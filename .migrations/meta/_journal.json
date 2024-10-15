@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1728956881198,
+      "tag": "0000_ambiguous_wilson_fisk",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1728957803991,
+      "tag": "0001_futuristic_gamma_corps",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1728960715709,
+      "tag": "0002_chunky_tempest",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1728963260677,
+      "tag": "0003_clammy_doctor_faustus",
+      "breakpoints": true
+    }
+  ]
+}
