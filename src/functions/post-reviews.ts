@@ -1,6 +1,6 @@
-import { eq } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 import { db } from '../db'
-import { client, reviews, tmp_reviews } from '../db/schema'
+import { client, tmp_reviews } from '../db/schema'
 
 export async function postReviews() {
   function getRandomName(): string {
@@ -29,13 +29,15 @@ export async function postReviews() {
   const clientRecord = await db
     .select({
       id: client.id,
+      qtd: sql`count(1) over()`.as('qtd'),
     })
     .from(client)
 
-  const clientId = clientRecord[0].id
+  const clientId =
+    clientRecord[getRandomInteger(0, Number(clientRecord[0].qtd) - 1)].id
 
   // Criar um array para armazenar os valores a serem inseridos
-  const reviewsToInsert = new Array(10).fill(null).map(() => ({
+  const reviewsToInsert = new Array(5).fill(null).map(() => ({
     id_client: clientId,
     name: getRandomName(),
     review_note: getRandomInteger(1, 5),
@@ -44,49 +46,3 @@ export async function postReviews() {
   // Inserir as avaliações
   await db.insert(tmp_reviews).values(reviewsToInsert)
 }
-
-// import { eq } from 'drizzle-orm'
-// import { db } from '../db'
-// import { client, reviews, tmp_reviews } from '../db/schema'
-
-// export async function postReviews(idClient: string) {
-//   function getRandomName(): string {
-//     const names = [
-//       'Alice',
-//       'Bob',
-//       'Charlie',
-//       'David',
-//       'Eve',
-//       'Frank',
-//       'Grace',
-//       'Heidi',
-//       'Ivan',
-//       'Judy',
-//     ]
-
-//     const randomIndex = Math.floor(Math.random() * names.length)
-//     return names[randomIndex]
-//   }
-
-//   const times = new Array(10).fill(null)
-//   times.forEach((_, i) => {
-//     const idClient = db
-//     .select({
-//         id: client.id,
-//       })
-//       .from(client)
-
-//     await db.insert(tmp_reviews).values([
-//         { id_client: idClient, name: getRandomName(), review_note: 5},
-//     ])
-//   })
-
-//   const [review] = await db
-//     .select({
-//       id: reviews.id,
-//     })
-//     .from(reviews)
-//     .where(eq(reviews.id_client, idClient))
-
-//   return { review }
-// }

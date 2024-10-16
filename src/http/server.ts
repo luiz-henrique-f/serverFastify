@@ -9,6 +9,7 @@ import fastifyCors from '@fastify/cors'
 import { getIdReviewRoute } from './routes/get-id-review'
 import { getIdClientRoute } from './routes/get-id-client'
 import { postReviews } from '../functions/post-reviews'
+import { postReviewsTable } from '../functions/post-reviews-table'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -25,15 +26,24 @@ app.register(getIdClientRoute)
 const schedulePostReviews = async () => {
   try {
     await postReviews()
-    // Exemplo: await postReviews(someIdClient);
     console.log('Executando inserção de avaliações...')
   } catch (error) {
     console.error('Erro ao executar inserção de avaliações:', error)
   }
 }
 
-// setInterval(schedulePostReviews, 10 * 60 * 1000)
-setInterval(schedulePostReviews, 60 * 1000)
+const schedulePostReviewsTable = async () => {
+  try {
+    await postReviewsTable()
+    console.log('Executando inserção de avaliações na tabela principal...')
+  } catch (error) {
+    console.error('Erro ao executar inserção de avaliações:', error)
+  }
+}
+
+// setInterval(schedulePostReviews, 10 * 60 * 1000) // 10 minutos
+setInterval(schedulePostReviews, 60 * 1000) // 1 minuto
+setInterval(schedulePostReviewsTable, 90 * 1000) // 1 min e 30 seg
 
 app.get('/', (request, reply) => {
   return reply.send(JSON.stringify({ nome: 'Luiz' }))
