@@ -10,6 +10,12 @@ import { getIdReviewRoute } from './routes/get-id-review'
 import { getIdClientRoute } from './routes/get-id-client'
 import { postReviews } from '../functions/post-reviews'
 import { postReviewsTable } from '../functions/post-reviews-table'
+import { getTotalReviewsClientRoute } from './routes/get-total-reviews-client'
+import { getTotalReviews30DaysRoute } from './routes/get-reviews-30-days'
+import { getReviewsToday } from '../functions/get-reviews-today'
+import { getReviewsTodayRoute } from './routes/get-reviews-today'
+import { getReviewsMonthRoute } from './routes/get-reviews-month'
+import { getClientsRoute } from './routes/get-client'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -22,6 +28,11 @@ app.setSerializerCompiler(serializerCompiler)
 
 app.register(getIdReviewRoute)
 app.register(getIdClientRoute)
+app.register(getTotalReviewsClientRoute)
+app.register(getTotalReviews30DaysRoute)
+app.register(getReviewsTodayRoute)
+app.register(getReviewsMonthRoute)
+app.register(getClientsRoute)
 
 const schedulePostReviews = async () => {
   try {
@@ -42,8 +53,8 @@ const schedulePostReviewsTable = async () => {
 }
 
 // setInterval(schedulePostReviews, 10 * 60 * 1000) // 10 minutos
-setInterval(schedulePostReviews, 60 * 1000) // 1 minuto
-setInterval(schedulePostReviewsTable, 90 * 1000) // 1 min e 30 seg
+setInterval(schedulePostReviews, 10 * 60 * 1000) // 1 minuto
+setInterval(schedulePostReviewsTable, 10 * 90 * 1000) // 1 min e 30 seg
 
 app.get('/', (request, reply) => {
   return reply.send(JSON.stringify({ nome: 'Luiz' }))
