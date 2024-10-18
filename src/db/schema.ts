@@ -20,6 +20,7 @@ export const reviews = pgTable('reviews', {
   id_client: uuid('id_client').notNull(),
   name: text('name').notNull(),
   review_note: integer('review_note').notNull(),
+  message: text('message').notNull(),
   created_at: timestamp('created_at').defaultNow().notNull(),
 })
 
@@ -29,5 +30,6 @@ export const tmp_reviews = pgTable('tmp_reviews', {
   id_client: uuid('id_client').notNull(),
   name: text('name').notNull(),
   review_note: integer('review_note').notNull(),
+  message: text('message').notNull(),
   created_at: timestamp('created_at').defaultNow().notNull(),
 })

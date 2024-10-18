@@ -1,4 +1,4 @@
-import { and, eq, sql } from 'drizzle-orm'
+import { and, desc, eq, sql } from 'drizzle-orm'
 import { db } from '../db'
 import { reviews } from '../db/schema'
 
@@ -7,6 +7,8 @@ export async function getClients(idClient: string) {
     .select({
       id: reviews.id,
       name: reviews.name,
+      review_note: reviews.review_note,
+      message: reviews.message,
     })
     .from(reviews)
     .where(
@@ -15,6 +17,8 @@ export async function getClients(idClient: string) {
         sql /*sql */`reviews.created_at >= NOW() - INTERVAL '24 hours'`
       )
     )
+    .orderBy(desc(reviews.created_at))
+    .limit(5)
 
   return totalReviews
 }

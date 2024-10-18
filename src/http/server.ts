@@ -16,6 +16,7 @@ import { getReviewsToday } from '../functions/get-reviews-today'
 import { getReviewsTodayRoute } from './routes/get-reviews-today'
 import { getReviewsMonthRoute } from './routes/get-reviews-month'
 import { getClientsRoute } from './routes/get-client'
+import { getReviewsAvgRoute } from './routes/get-reviews-avg'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -33,6 +34,7 @@ app.register(getTotalReviews30DaysRoute)
 app.register(getReviewsTodayRoute)
 app.register(getReviewsMonthRoute)
 app.register(getClientsRoute)
+app.register(getReviewsAvgRoute)
 
 const schedulePostReviews = async () => {
   try {
@@ -53,8 +55,8 @@ const schedulePostReviewsTable = async () => {
 }
 
 // setInterval(schedulePostReviews, 10 * 60 * 1000) // 10 minutos
-setInterval(schedulePostReviews, 10 * 60 * 1000) // 1 minuto
-setInterval(schedulePostReviewsTable, 10 * 90 * 1000) // 1 min e 30 seg
+setInterval(schedulePostReviews, 100 * 60 * 1000) // 1 minuto
+setInterval(schedulePostReviewsTable, 100 * 90 * 1000) // 1 min e 30 seg
 
 app.get('/', (request, reply) => {
   return reply.send(JSON.stringify({ nome: 'Luiz' }))

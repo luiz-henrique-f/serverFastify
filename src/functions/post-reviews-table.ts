@@ -7,6 +7,7 @@ interface TmpReview {
   id_client: string
   name: string
   review_note: number
+  message: string
 }
 
 export async function postReviewsTable() {
@@ -16,6 +17,7 @@ export async function postReviewsTable() {
       id_client: tmp_reviews.id_client,
       name: tmp_reviews.name,
       review_note: tmp_reviews.review_note,
+      message: tmp_reviews.message,
     })
     .from(tmp_reviews)
     .where(

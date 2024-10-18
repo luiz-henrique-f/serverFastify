@@ -20,6 +20,18 @@ export async function postReviews() {
     const randomIndex = Math.floor(Math.random() * names.length)
     return names[randomIndex]
   }
+  function getRandomText(): string {
+    const names = [
+      'Excelente atendimento',
+      'Comida muito boa',
+      'Ambiente maravilhoso',
+      'Ótimo atendimento',
+      'Um dos melhores lugares que já frequentei',
+    ]
+
+    const randomIndex = Math.floor(Math.random() * names.length)
+    return names[randomIndex]
+  }
 
   function getRandomInteger(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min
@@ -37,10 +49,11 @@ export async function postReviews() {
     clientRecord[getRandomInteger(0, Number(clientRecord[0].qtd) - 1)].id
 
   // Criar um array para armazenar os valores a serem inseridos
-  const reviewsToInsert = new Array(5).fill(null).map(() => ({
+  const reviewsToInsert = new Array(10).fill(null).map(() => ({
     id_client: clientId,
     name: getRandomName(),
     review_note: getRandomInteger(1, 5),
+    message: getRandomText(),
   }))
 
   // Inserir as avaliações
