@@ -11,7 +11,7 @@ export async function getReviewsToday(idClient: string) {
     .where(
       and(
         eq(reviews.id_client, idClient),
-        sql /*sql */`reviews.created_at >= NOW()`
+        sql /*sql */`TO_CHAR(reviews.created_at, 'DD/MM/YYYY') = TO_CHAR(NOW(), 'DD/MM/YYYY')`
       )
     )
 
