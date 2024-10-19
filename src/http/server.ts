@@ -55,8 +55,8 @@ const schedulePostReviewsTable = async () => {
 }
 
 // setInterval(schedulePostReviews, 10 * 60 * 1000) // 10 minutos
-setInterval(schedulePostReviews, 100 * 60 * 1000) // 1 minuto
-setInterval(schedulePostReviewsTable, 100 * 90 * 1000) // 1 min e 30 seg
+setInterval(schedulePostReviews, 10 * 60 * 1000) // 1 minuto
+setInterval(schedulePostReviewsTable, 90 * 1000) // 1 min e 30 seg
 
 app.get('/', (request, reply) => {
   return reply.send(JSON.stringify({ nome: 'Luiz' }))
