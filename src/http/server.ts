@@ -17,6 +17,7 @@ import { getReviewsTodayRoute } from './routes/get-reviews-today'
 import { getReviewsMonthRoute } from './routes/get-reviews-month'
 import { getClientsRoute } from './routes/get-client'
 import { getReviewsAvgRoute } from './routes/get-reviews-avg'
+import { getDataDashboardRoute } from './routes/get-data-dashboard'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -35,6 +36,7 @@ app.register(getReviewsTodayRoute)
 app.register(getReviewsMonthRoute)
 app.register(getClientsRoute)
 app.register(getReviewsAvgRoute)
+app.register(getDataDashboardRoute)
 
 const schedulePostReviews = async () => {
   try {
